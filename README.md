@@ -24,3 +24,6 @@ The application uses
 * google firestore database
 * google firebase authentication
 * gifted chat library
+
+
+https://user-images.githubusercontent.com/77455115/123984251-c4974f00-d9c4-11eb-8d2e-be8e63226aef.mp4
