@@ -14,7 +14,7 @@ export default class Start extends React.Component {
   // renders the start view with name entry field and background color selector
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} >
         <ImageBackground source={require('../assets/Background-Image.png')} style={styles.backgroundImage}>
           <Text style={styles.title}>CHAT.APP</Text>
           <View style={styles.box}>
@@ -24,7 +24,6 @@ export default class Start extends React.Component {
               value={this.state.name}
               placeholder='Your name'
             />
-            
             <View style={styles.backgroundSelector}>
               <Text style={styles.selectorText}>
                 Choose Background Color:
@@ -105,6 +104,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray', 
     borderWidth: 1, 
     padding: 5,
+    top: 5,
   },
   startButton: {
     width: '88%',
@@ -114,12 +114,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#757083',
     textAlign: 'center',
     padding: 15,
-
+    bottom: 5,
   },
   backgroundSelector: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center', 
+    bottom: 5
 
   },
   selectorText: {
