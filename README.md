@@ -26,4 +26,4 @@ The application uses
 * gifted chat library
 
 
-https://user-images.githubusercontent.com/77455115/124113117-5c4f7880-da6b-11eb-8692-5b2190538e35.mp4
+https://user-images.githubusercontent.com/77455115/124470604-17de1880-dd9c-11eb-9b98-a0cb74d7ab34.mp4
