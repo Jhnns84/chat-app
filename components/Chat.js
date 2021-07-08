@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, Platform, KeyboardAvoidingView } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 // import AsyncStorage from '@react-native-community/async-storage';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from '@react-native-community/netinfo';
 
 const firebase = require('firebase');
@@ -75,6 +75,7 @@ export default class Chat extends React.Component {
   // this unsubscribes from the messages collection
   componentWillUnmount() {
     this.unsubscribe();
+    this.authUnsubscribe();
   }
 
   // this gets messages from asyncStorage  
@@ -187,11 +188,11 @@ export default class Chat extends React.Component {
         {/* this renders the chat inteface */}
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
-          renderInputToolbar={this.renderInputToolbar}
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: 1,
+            _id: this.state.uid,
           }}
         />
         {/* this ensures the keyboard and messages display correctly on android */}
