@@ -6,8 +6,8 @@ export default class Start extends React.Component {
     super(props);
     // sets initial state for user name and background color
     this.state = {
-      name: "",
-      backgroundColor: '#fff'
+      name: '',
+      color: ''
 
     };
   }
