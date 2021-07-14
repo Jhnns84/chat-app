@@ -8,10 +8,13 @@ import * as Location from "expo-location";
 
 const firebase = require('firebase');
 require('firebase/firestore');
-
+require('firebase/auth');
 
 
 export default class CustomActions extends React.Component {
+  constructor() {
+    super();
+  }
 
   // this lets the user pick an image from the device's image library
   imagePicker = async () => {

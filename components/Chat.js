@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Platform, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, Platform, KeyboardAvoidingView, LogBox } from 'react-native';
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
-// import AsyncStorage from '@react-native-community/async-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from '@react-native-community/netinfo';
 import CustomActions from './CustomActions';
-import { Constants, MapView, Location, Permissions } from 'expo';
+import MapView from 'react-native-maps';
 
 const firebase = require('firebase');
 require('firebase/firestore');
@@ -18,6 +17,11 @@ export default class Chat extends React.Component {
       uid: 0, 
       image: null,
       location: null,
+      isConnected: false, 
+      user: {
+        _id: '',
+        name: '',
+      }
     }
 
     // this connects the app to firebase
@@ -32,6 +36,8 @@ export default class Chat extends React.Component {
         measurementId: "G-QVQVT30MCX"
       });
       }
+
+      LogBox.ignoreAllLogs();//Ignore all log notifications
   };
 
   //  this creates a regular message and a system message as soon as the component is mounted
@@ -39,6 +45,7 @@ export default class Chat extends React.Component {
 
     // gets the username from props
     let name = this.props.route.params.name; 
+    this.props.navigation.setOptions({ title: name });
 
     // this references the messages collection
     this.referenceChatMessages = firebase.firestore().collection("messages");
@@ -57,6 +64,11 @@ export default class Chat extends React.Component {
           this.setState({
             uid: user.uid,
             messages: [],
+            isConnected: true,
+            user: {
+              _id: user.uid,
+              name: name,
+            }
           });
           // listen for collection changes
           this.unsubscribe = this.referenceChatMessages
@@ -119,6 +131,7 @@ export default class Chat extends React.Component {
     this.referenceChatMessages.add({
       _id: message._id,
       text: message.text || "",
+      uid: this.state.uid,
       createdAt: message.createdAt,
       user: message.user,
       image: message.image || null,
@@ -136,15 +149,16 @@ export default class Chat extends React.Component {
         _id: data._id,
         text: data.text || "",
         createdAt: data.createdAt.toDate(),
-        user: data.user,
+        user: {
+          _id: data.user._id,
+          name: data.user.name,
+        },
         image: data.image || null,
         location: data.location || null,
       });
     });
 
-    this.setState({
-      messages,
-    });
+    this.setState({ messages });
   };
 
 
@@ -159,6 +173,7 @@ export default class Chat extends React.Component {
     });
   }
 
+  // This sets the chat bubble color
   renderBubble(props) {
     return (
       <Bubble
@@ -172,6 +187,7 @@ export default class Chat extends React.Component {
     )
   };
 
+  // this renders the message input only when a connection is given
   renderInputToolbar(props) {
     if (this.state.isConnected == false) {
     } else {
@@ -192,13 +208,14 @@ export default class Chat extends React.Component {
     if (currentMessage.location) {
       return (
           <MapView
-            style={{width: 150,
+            style={{
+              width: 150,
               height: 100,
               borderRadius: 13,
               margin: 3}}
             region={{
-              latitude: currentMessage.location.latitude,
-              longitude: currentMessage.location.longitude,
+              latitude: Number(currentMessage.location.latitude),
+              longitude: Number(currentMessage.location.longitude),
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
