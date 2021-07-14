@@ -14,7 +14,13 @@ location.
 
 
 # How to use it
-Current version: Install locally and execute via "expo start"
+* First you need to have Node installed on your computer
+* To run the application you will need to install expo cli globally. You can do this by running the command:
+npm install expo-cli --global
+* You will need an emulator / simulator to run the app locally: 
+
+     - [Android Studio](https://docs.expo.io/workflow/android-studio-emulator/)
+     - [iOS Simulator](https://docs.expo.io/workflow/ios-simulator/) (MacOS)
 
 
 # Tech
