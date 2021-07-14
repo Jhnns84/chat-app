@@ -16,12 +16,23 @@ location.
 # How to use it
 * First you need to have Node installed on your computer
 * To run the application you will need to install expo cli globally. You can do this by running the command:
+```
 npm install expo-cli --global
+```
 * You will need an emulator / simulator to run the app locally: 
 
      - [Android Studio](https://docs.expo.io/workflow/android-studio-emulator/)
      - [iOS Simulator](https://docs.expo.io/workflow/ios-simulator/) (MacOS)
-
+* Once you have downloaded the repository, cd into the project folder and first run
+```
+npm install
+```
+to install all dependencies, followed by
+```
+expo start
+```
+to run the app. 
+* Once the expo app is running, use the emulator to display the chat application. 
 
 # Tech
 The application uses
